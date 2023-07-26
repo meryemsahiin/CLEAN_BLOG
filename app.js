@@ -29,6 +29,36 @@ app.get('/', async (req, res) => {
   });
 });
 
+// app.get("/blogs/:id", async (req, res) => {
+//   // console.log(req.params.id)
+//   // res.render('about');
+//   const blogs = await Blog.findById(req.params.id)
+//   res.render('blogs', {
+//     blogs
+//   })
+// });
+
+app.get("/blogs/:id", async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+    
+    if (!blog) {
+      // Eğer belirtilen ID ile eşleşen blog yoksa 404 hatası döndür
+      return res.status(404).send("Blog not found");
+    }
+
+    res.render('blog', {
+      blog
+    });
+  } catch (err) {
+    // Hata oluşursa hatayı yakalayıp kullanıcıya hata mesajı gönder
+    console.error("Veritabanından veri alınamadı:", err);
+    res.status(500).send("Sunucu hatası");
+  }
+});
+
+
+
 app.get('/about', (req, res) => {
     res.render('about');
   });
