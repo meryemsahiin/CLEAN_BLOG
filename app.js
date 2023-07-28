@@ -11,7 +11,7 @@ const blogControllers = require('./controllers/blogControllers');
 
 // mongoose.set("strictQuery", false);
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/clean-blog-test-db');
+    await mongoose.connect('mongodb+srv://meryem:BOaAiEHM3pt6Caxv@cluster0.f4x6p2r.mongodb.net/?retryWrites=true&w=majority');
   }
 main()
 
@@ -39,7 +39,7 @@ app.get('/blog/:id', pageControllers.getBlogPage);
 app.get('/edit/:id', pageControllers.getEditPage);
 
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Sunucu ${port} portunda çalıştırıldı.`);
 });
